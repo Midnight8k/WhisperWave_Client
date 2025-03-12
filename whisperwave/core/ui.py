@@ -1,8 +1,8 @@
 import customtkinter as ctk
-from neotts.core import http
+from whisperwave.core import http
 import threading
-from neotts.core.consumer import Consumer
-from neotts.core.tts import play_audio, text_to_speech
+from whisperwave.core.consumer import Consumer
+from whisperwave.core.tts import play_audio, text_to_speech
 import time
 
 
