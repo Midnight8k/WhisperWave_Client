@@ -13,6 +13,7 @@ class Ui:
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("blue")
         self.current_message = ""
+        self.base_path = "http://localhost:2000"
 
         self.app = ctk.CTk()
 
@@ -27,22 +28,33 @@ class Ui:
     """
     def _count_thread(self):
         while True:
-            http_req = http.RequestHandler("http://localhost:2000/get_all_messages")
+            http_req = http.RequestHandler(f"{self.base_path}/get_all_messages")
             self.label_number_of_messages.configure(text=http_req.get().get("TotalMessages"))
 
             # TODO: This is a temporary fix for viewing the messages in the queue. When Rabbit were implemented remove this.
             time.sleep(1)
 
     def next_action(self):
-        http_req = http.RequestHandler("http://localhost:2000/get_latest_message")
+        """
+        Button action to display the next message in the queue. This function gets the latest message.
+
+        return: void
+        """
+        http_req = http.RequestHandler(f"{self.base_path}/get_latest_message")
         self.current_message = http_req.get().get("Message")
         self.label_message.configure(text=self.current_message)
 
     def play_action(self):
+        """
+        Button action to play the message that is being displayed.
+
+        return:void
+        """
         thread = threading.Thread(target=self._play_thread)
         thread.start()
         
     def skip_action(self):
+        # TODO: Include logic for skipping the message.
         self.label_message.configure(text="Skipped!")
 
     def consume(self):
