@@ -1,19 +1,23 @@
-from gtts import gTTS
+import asyncio
+import edge_tts
 import pygame
 
 
-def text_to_speech(text, lang='pt', filename='output.mp3'):
+def text_to_speech(text, voice='pt-PT-RaquelNeural', filename='output.mp3'):
     """
-    Convert text to speech and save it as an MP3 file.
-
+    Convert text to speech using Edge TTS and save it as an MP3 file.
+    This is a synchronous wrapper around the async edge_tts call.
     Parameters:
     text (str): The text to be converted to speech.
-    lang (str): The language in which the text will be spoken (default is Portuguese).
+    voice (str): The voice to be used (default is Portuguese - Duarte).
     filename (str): The name of the output MP3 file (default is 'output.mp3').
     """
+    async def run_tts():
+        communicate = edge_tts.Communicate(text=text, voice=voice, rate="+15%")
+        await communicate.save(filename)
 
-    tts = gTTS(text=text, lang=lang, slow=False)
-    tts.save(filename)
+    asyncio.run(run_tts())
+
 
 def play_audio(file_path):
     pygame.mixer.init()

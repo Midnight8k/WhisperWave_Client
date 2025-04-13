@@ -1,3 +1,4 @@
+import asyncio
 import customtkinter as ctk
 from whisperwave.core import http
 import threading
@@ -13,7 +14,7 @@ class Ui:
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("blue")
         self.current_message = ""
-        self.base_path = "http://localhost:2000"
+        self.base_path = "http://192.168.1.94:2000"
 
         self.app = ctk.CTk()
 

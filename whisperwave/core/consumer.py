@@ -20,7 +20,7 @@ class Consumer:
     queue = None
 
     def __init__(self):
-        self.connection = pika.BlockingConnection(pika.ConnectionParameters("localhost"))
+        self.connection = pika.BlockingConnection(pika.ConnectionParameters("192.168.1.94"))
         self.channel = self.connection.channel()
 
     def set_queue(self, queue):

@@ -138,4 +138,4 @@ dmypy.json
 cython_debug/
 
 # Output mp3 file
-.output.mp3
+output.mp3
